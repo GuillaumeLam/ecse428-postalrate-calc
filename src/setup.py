@@ -16,5 +16,5 @@ setup(
     options = options,
     version = "<any number>",
     description = '<any description>',
-    executables = executables
+    executables = [Executable("postalrate-calc.py", base=base), Executable("postalrate-csv-pop.py")]
 )
