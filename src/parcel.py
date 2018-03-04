@@ -106,7 +106,7 @@ class Parcel:
             return False
 
     def is_weight_not_too_low_for_small(self):
-        if self.weight >= 0:
+        if self.weight > 0:
             return True
         else:
             return False
@@ -146,32 +146,32 @@ class Parcel:
         if self.pc_valid_form(self.from_pc) and self.pc_valid_form(self.to_pc):
             if not self.from_pc_valid():
                 print("oops! your postal code has not been found")
-                exit()
+                return -1
             if not self.to_pc_valid():
                 print("destination postal code not found")
-                exit()
+                return -1
         else:
             print("entered postal codes not valid")
-            exit()
+            return -1
 
         # if not self.from_pc_valid():
         #     print("oops! your postal code has not been found")
-        #     exit()
+        #     return -1
         # if not self.to_pc_valid():
         #     print("destination postal code not found")
-        #     exit()
+        #     return -1
 
         if not (self.length_is_not_too_high() and self.length_is_not_too_low()):
             print("package does not fit length dimension")
-            exit()
+            return -1
 
         if not (self.height_is_not_too_high() and self.height_is_not_too_low()):
             print("package does not fit height dimension")
-            exit()
+            return -1
 
         if not (self.width_is_not_too_high() and self.width_is_not_too_low()):
             print("package does not fit width dimension")
-            exit()
+            return -1
 
         if self.is_weight_not_too_high_for_small() and self.is_weight_not_too_low_for_small():
             self.total = float(self.weight) * float(self.sameto[0][11])
@@ -181,7 +181,7 @@ class Parcel:
             self.total = float(self.weight) * float(self.sameto[2][11])
         else:
             print("weight exceeds limit")
-            exit()
+            return -1
 
         if self.is_postal_type_valid():
             if self.p_type == 'Xpress':
@@ -190,6 +190,6 @@ class Parcel:
                 self.total += 20
         else:
             print("Not a valid postal type!")
-            exit()
+            return -1
 
         return self.total

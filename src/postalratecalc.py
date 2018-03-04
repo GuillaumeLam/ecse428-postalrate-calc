@@ -20,15 +20,25 @@ try:
 except Exception as error:
     print("You have entered no arguments!")
     exit()
+
 try:
     Errors.missing_args(len(sys.argv))
 except Exception as error:
     print("You are missing some arguments!")
     exit()
 
+try:
+    Errors.too_many_args(len(sys.argv))
+except Exception as error:
+    print("You somehow entered too many arguments!")
+    exit()
+
 parcel = Parcel(args.frm, args.to, args.length, args.width, args.height, args.weight, args.postal_type)
 # parcel = Parcel('V9B', 'H1Y', 50, 50, 50, 2, 'Regular')
 
 total = parcel.verify()
+
+if total < 0:
+    exit()
 
 print('total: ' + str(total) + "$\n")
