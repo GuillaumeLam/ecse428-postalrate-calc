@@ -2,6 +2,27 @@ import unittest
 from src.parcel import Parcel
 
 
+        min_length = 10
+        max_length = 210
+        min_height = 1
+        max_height = 210
+        min_width = 7
+        max_width = 275
+
+        min_weight_regular = 0
+        max_weight_regular = 10
+
+        min_weight_priority = 11
+        max_weight_priority = 20
+
+        min_weight_xpress = 21
+        max_weight_xpress = 30
+
+        rs_rate = 1.619
+        xs_rate = 1.149
+        ps_rate = 0.964
+
+
 class TestPostalRateCalculator(unittest.TestCase):
     # def setUp(self):
     def test_no_arguments(self):
@@ -17,50 +38,53 @@ class TestPostalRateCalculator(unittest.TestCase):
         print("test 2")
 
     def test_valid_from_postalcode_03(self):
-        self.assertTrue(method2())
+        self.assertTrue(Parcel.from_pc_valid())
         print("test 3")
 
     def test_valid_to_postalcode_04(self):
-        self.assertEqual(MTL, method3())
+        Parcel.to = "H1Y"
+        self.assertTrue(Parcel.from_pc_valid())
 
     def test_valid_shipment_type_04(self):
+
         self.assertTrue(method3())
 
     def test_length_is_not_too_low_04(self):
 
-        self.assertTrue(val <= method4())
+        self.assertTrue(min_length <= method4())
 
     def test_length_is_not_too_high_05(self):
-        self.assertTrue(val >= method4())
+        self.assertTrue(max_length >= method4())
 
     def test_width_is_not_too_low_06(self):
-        self.assertTrue(val <= method4())
+        self.assertTrue(min_width <= method4())
 
     def test_width_is_not_too_high_07(self):
-        self.assertTrue(val >= method5())
+        self.assertTrue(max_width >= method5())
 
     def test_height_is_in_not_too_low_08(self):
-        self.assertTrue(val <= method4())
+        self.assertTrue(min_height <= method4())
 
     def test_height_is_in_not_too_high_09(self):
-        self.assertTrue(val >= method4())
+        self.assertTrue(max_height >= method4())
 
     def test_weight_is_not_too_low_for_regular_10(self):
-        self.assertTrue(val <= method4())
+        self.assertTrue(min_weight_regular <= method4())
 
     def test_weight_is_not_too_high_for_regular_11(self):
-        self.assertTrue(val >= method4())
-
+        self.assertTrue(max_weight_regular >= method4())
 
     def test_weight_is_not_too_low_for_priority_12(self):
-        self.assertTrue(val <= method4())
+        self.assertTrue(min_weight_priority <= method4())
 
     def test_weight_is_not_too_high_for_priority_13(self):
-        self.assertTrue(val >= method4())
+        self.assertTrue(max_weight_priority >= method4())
 
-    def test_weight_is_in_range_for_XXXpress_09(self):
-        self.assertTrue(val <= method4())
-        self.assertTrue(val >= method4())
+    def test_weight_is_in_range_for_xpress_14(self):
+        self.assertTrue(min_weight_xpress <= method4())
+
+    def test_weigth_is_in_range_for_xpress_15(self):
+        self.assertTrue(max_weight_xpress >= method4())
 
     def test_rate_validity_10(self):
 
