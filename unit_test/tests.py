@@ -1,5 +1,5 @@
 import unittest
-# from postalratecalc import Parcel
+from src.parcel import Parcel
 
 
 class TestPostalRateCalculator(unittest.TestCase):
@@ -14,5 +14,4 @@ class TestPostalRateCalculator(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    if __name__ == '__main__':
-        unittest
+    unittest.main()
