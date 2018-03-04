@@ -27,3 +27,8 @@ except Exception as error:
     exit()
 
 parcel = Parcel(args.frm, args.to, args.length, args.width, args.height, args.weight, args.postal_type)
+# parcel = Parcel('V9B', 'H1Y', 50, 50, 50, 2, 'Regular')
+
+total = parcel.verify()
+
+print('total: ' + str(total) + "$\n")

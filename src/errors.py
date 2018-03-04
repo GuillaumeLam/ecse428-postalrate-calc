@@ -8,3 +8,8 @@ class Errors:
     def missing_args(args):
         if args < 8:
             raise Exception
+
+    @staticmethod
+    def too_many_args(args):
+        if args > 8:
+            raise Exception
