@@ -1,5 +1,6 @@
 import unittest
 from parcel import Parcel
+from errors import Errors
 
 
 # min_length = 10
@@ -27,21 +28,17 @@ class TestPostalRateCalculator(unittest.TestCase):
     def setUp(self):
         self.testparcel = Parcel(0,0,0,0,0,0,0)
 
-    def test_no_arguments(self):
-        Parcel(0,0,0,0,0,0,0)
-
     def test_no_arguments_01(self):
-        #self.assertRaises(Exception, method0())
-        print("test 1")
+        with self.assertRaises(Exception):
+            Errors.no_args(1)
 
     def test_too_few_arguments_02(self):
-        #self.assertRaises(Exception, method1())
-        print("test 2")
+        with self.assertRaises(Exception):
+            Errors.missing_args(4)
 
     def test_valid_from_postalcode_03(self):
         testparcel = Parcel('V9A',0,0,0,0,0,0)
         self.assertTrue(testparcel.from_pc_valid())
-        print("test 3")
 
     # def test_valid_to_postalcode_04(self):
     #     Parcel.to = "H1Y"

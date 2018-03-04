@@ -2,6 +2,7 @@
 import argparse
 import sys
 from parcel import Parcel
+from errors import Errors
 
 parser = argparse.ArgumentParser(description='Do stuff.')
 parser.add_argument('--from', dest='frm', help='Enter the first three variables of your local postal code')
@@ -14,23 +15,15 @@ parser.add_argument('--postal_type', default='Regular', dest='postal_type', help
 
 args = parser.parse_args()
 
-if len(sys.argv) <= 1:
-    print("no arguments")
+try:
+    Errors.no_args(len(sys.argv))
+except Exception as error:
+    print("You have entered no arguments!")
     exit()
-elif len(sys.argv) < 8:
-    print("missing args")
+try:
+    Errors.missing_args(len(sys.argv))
+except Exception as error:
+    print("You are missing some arguments!")
     exit()
 
 parcel = Parcel(args.frm, args.to, args.length, args.width, args.height, args.weight, args.postal_type)
-
-def is_to_postalcode_valid (postalcode):
-
-        if postalcode == 'H1Y':
-            result = True
-        else:
-            result = False
-            print ("Incorrect postal code")
-
-def is_postal_type_valid (postal_type):
-    if (postal_type == 'Regular') or (postal_type == 'Xpress') or (postal_type == 'Priority'):
-        return True

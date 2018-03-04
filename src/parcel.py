@@ -109,30 +109,28 @@ class Parcel:
         else:
             return False
 
-    def is_weight_not_too_low_for_priority(self, weight, type='Priority'):
+    def is_weight_not_too_low_for_priority(self, weight, type='Xpress'):
         if (weight >= 11):
             return True
         else:
             return False
 
-    def is_weight_not_too_high_for_priority(self, weight, type='Priority'):
+    def is_weight_not_too_high_for_priority(self, weight, type='Xpress'):
         if (weight <= 20):
             return True
         else:
             return False
-    def is_weight_not_too_low_for_xpress(self, weight, type='Xpress'):
+    def is_weight_not_too_low_for_xpress(self, weight, type='Priority'):
         if (weight >= 21):
             return True
         else:
             return False
 
-    def is_weight_not_too_high_for_xpress(self, weight, type='Xpress'):
+    def is_weight_not_too_high_for_xpress(self, weight, type='Priority'):
         if (weight <= 30):
             return True
         else:
             return False
-
-    
 
     def verify(self):
         if not self.from_pc_valid(self.from_pc):
