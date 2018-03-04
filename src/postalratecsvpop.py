@@ -33,12 +33,12 @@ csv_entries = []
 #
 #     postal_codes.append(code)
 
-with open('postalrate.csv', 'w', newline='') as csvfile:
+with open('../postalrate.csv', 'w', newline='') as csvfile:
 
     spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-    spamwriter.writerow(['From', 'To', 'min length', 'max length', 'min height', 'max height', 'min width',
-                         'max width', 'min weight', 'max weight', 'priority type', 'rate per g'])
+    spamwriter.writerow(['From', 'To', 'priority type', 'min length', 'max length', 'min height', 'max height', 'min width',
+                         'max width', 'min weight', 'max weight', 'rate per g'])
 
     for i in range(len(postal_codes)):
         if i == 0:
