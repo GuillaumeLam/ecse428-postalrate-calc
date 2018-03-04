@@ -15,22 +15,24 @@ class Parcel:
         self.sameto = []
 
     def from_pc_valid(self):
-        reader = csv.reader(open('../postalrate.csv', 'r', newline=''), delimiter=',', quotechar='|')
-        for i, row in enumerate(reader):
-            if i == 0:
+        with open('../postalrate.csv', 'r', newline='') as file:
+            reader = csv.reader(file, delimiter=',', quotechar='|')
+            for i, row in enumerate(reader):
+                if i == 0:
+                    continue
+                    # print(row)
+                elif row[0] == self.from_pc:
+                    self.samefrom.append(row)
+
+            """
+            for row in self.samefrom:
                 print(row)
-            elif row[0] == self.from_pc:
-                self.samefrom.append(row)
+            """
 
-        """
-        for row in self.samefrom:
-            print(row)
-        """
-
-        if len(self.samefrom) == 0:
-            return False
-        else:
-            return True
+            if len(self.samefrom) == 0:
+                return False
+            else:
+                return True
 
     def to_pc_valid(self, to_pc):
         for row in self.samefrom:
@@ -56,6 +58,12 @@ class Parcel:
 
     def is_postal_type_valid(self, type):
         if (type == 'Regular') or (type == 'Xpress') or (type == 'Priority'):
+            return True
+        else:
+            return False
+
+    def is_weight_valid(self, weight, type):
+        if ((type == 'Regular') and ((weight >= 0) and (weight <= 10))) or ((type == 'Priority') and ((weight >= 11) and (weight <= 20))) or ((type == 'Xpress') and ((weight >= 21) and (weight <= 30))):
             return True
         else:
             return False

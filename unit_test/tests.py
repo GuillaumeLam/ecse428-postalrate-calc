@@ -39,7 +39,7 @@ class TestPostalRateCalculator(unittest.TestCase):
         print("test 2")
 
     def test_valid_from_postalcode_03(self):
-        testparcel = Parcel('H1Y',0,0,0,0,0,0)
+        testparcel = Parcel('V9A',0,0,0,0,0,0)
         self.assertTrue(testparcel.from_pc_valid())
         print("test 3")
 
