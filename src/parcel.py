@@ -53,5 +53,11 @@ class Parcel:
         else:
             return False
 
-    def get_postal_type(self):
+    def get_postal_type(self, type):
         return self.type
+
+    def is_postal_type_valid(self, type):
+        if (type == 'Regular') or (type == 'Xpress') or (type == 'Priority'):
+            return True
+        else:
+            return False
