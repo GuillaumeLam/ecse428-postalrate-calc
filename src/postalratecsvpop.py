@@ -37,7 +37,7 @@ with open('postalrate.csv', 'w', newline='') as csvfile:
 
     spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
-    spamwriter.writerow(['From', 'To', 'min length', 'max length', 'max height', 'max height', 'max width',
+    spamwriter.writerow(['From', 'To', 'min length', 'max length', 'min height', 'max height', 'min width',
                          'max width', 'min weight', 'max weight', 'priority type', 'rate per g'])
 
     for i in range(len(postal_codes)):
