@@ -61,3 +61,9 @@ class Parcel:
             return True
         else:
             return False
+
+    def is_weight_valid(self, weight, type):
+        if ((type == 'Regular') and ((weight >= 0) and (weight <= 10))) or ((type == 'Priority') and ((weight >= 11) and (weight <= 20))) or ((type == 'Xpress') and ((weight >= 21) and (weight <= 30))):
+            return True
+        else:
+            return False
