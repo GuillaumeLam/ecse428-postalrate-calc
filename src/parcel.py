@@ -16,7 +16,6 @@ class Parcel:
         self.from_pc_valid('U4D')
         self.to_pc_valid('M4N')
 
-
     def from_pc_valid(self, from_pc):
         reader = csv.reader(open('postalrate.csv', 'r', newline=''), delimiter=',', quotechar='|')
         for i, row in enumerate(reader):
