@@ -13,15 +13,13 @@ class Parcel:
         self.type = type
         self.samefrom = []
         self.sameto = []
-        self.from_pc_valid('U4D')
-        self.to_pc_valid('M4N')
 
-    def from_pc_valid(self, from_pc):
+    def from_pc_valid(self):
         reader = csv.reader(open('../postalrate.csv', 'r', newline=''), delimiter=',', quotechar='|')
         for i, row in enumerate(reader):
             if i == 0:
                 print(row)
-            elif row[0] == from_pc:
+            elif row[0] == self.from_pc:
                 self.samefrom.append(row)
 
         """
@@ -61,3 +59,11 @@ class Parcel:
             return True
         else:
             return False
+
+    def verify(self):
+        if not self.from_pc_valid(self.from_pc):
+            print("oops")
+            exit()
+        if not self.to_pc_valid(self.to_pc):
+            print("")
+            exit()
