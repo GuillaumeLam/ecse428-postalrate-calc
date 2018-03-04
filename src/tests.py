@@ -1,5 +1,5 @@
 import unittest
-from src.parcel import Parcel
+from parcel import Parcel
 
 
 # min_length = 10
