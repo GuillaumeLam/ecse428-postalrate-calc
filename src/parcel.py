@@ -46,9 +46,44 @@ class Parcel:
         else:
             return True
 
-    def valid_size(self, length, width, height):
+    def length_is_not_too_low(self, length):
         row = self.sameto[0]
-        if length <= row[2] and width <= row[3] and height <= row[4]:
+        if length >= row[2]:
+            return True
+        else:
+            return False
+
+    def length_is_not_too_high(self, length):
+            row = self.sameto[0]
+            if length <= row[3]:
+                return True
+            else:
+                return False
+
+    def height_is_not_too_low(self, height):
+            row = self.sameto[0]
+            if height >= row[4]:
+                return True
+            else:
+                return False
+
+    def height_is_not_too_high(self, height):
+            row = self.sameto[0]
+            if height <= row[5]:
+                return True
+            else:
+                return False
+
+    def width_is_not_too_low(self, width):
+        row = self.sameto[0]
+        if width >= row[6]:
+            return True
+        else:
+            return False
+
+    def width_is_not_too_high(self, width):
+        row = self.sameto[0]
+        if width <= row[7]:
             return True
         else:
             return False
@@ -62,11 +97,42 @@ class Parcel:
         else:
             return False
 
-    def is_weight_valid(self, weight, type):
-        if ((type == 'Regular') and ((weight >= 0) and (weight <= 10))) or ((type == 'Priority') and ((weight >= 11) and (weight <= 20))) or ((type == 'Xpress') and ((weight >= 21) and (weight <= 30))):
+    def is_weight_not_too_low_for_regular(self, weight, type = 'Regular'):
+        if (weight >= 0):
             return True
         else:
             return False
+
+    def is_weight_not_too_high_for_regular(self, weight, type = 'Regular'):
+        if (weight <= 10):
+            return True
+        else:
+            return False
+
+    def is_weight_not_too_low_for_priority(self, weight, type='Priority'):
+        if (weight >= 11):
+            return True
+        else:
+            return False
+
+    def is_weight_not_too_high_for_priority(self, weight, type='Priority'):
+        if (weight <= 20):
+            return True
+        else:
+            return False
+    def is_weight_not_too_low_for_xpress(self, weight, type='Xpress'):
+        if (weight >= 21):
+            return True
+        else:
+            return False
+
+    def is_weight_not_too_high_for_xpress(self, weight, type='Xpress'):
+        if (weight <= 30):
+            return True
+        else:
+            return False
+
+    
 
     def verify(self):
         if not self.from_pc_valid(self.from_pc):
