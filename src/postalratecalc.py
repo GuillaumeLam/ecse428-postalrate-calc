@@ -23,14 +23,3 @@ elif len(sys.argv) < 8:
 
 parcel = Parcel(args.frm, args.to, args.length, args.width, args.height, args.weight, args.postal_type)
 
-def is_to_postalcode_valid (postalcode):
-
-        if postalcode == 'H1Y':
-            result = True
-        else:
-            result = False
-            print ("Incorrect postal code")
-
-def is_postal_type_valid (postal_type):
-    if (postal_type == 'Regular') or (postal_type == 'Xpress') or (postal_type == 'Priority'):
-        return True

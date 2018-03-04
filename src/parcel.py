@@ -132,7 +132,7 @@ class Parcel:
         else:
             return False
 
-    
+
 
     def verify(self):
         if not self.from_pc_valid(self.from_pc):

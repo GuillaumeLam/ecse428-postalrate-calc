@@ -43,50 +43,89 @@ class TestPostalRateCalculator(unittest.TestCase):
         self.assertTrue(testparcel.from_pc_valid())
         print("test 3")
 
-    # def test_valid_to_postalcode_04(self):
-    #     Parcel.to = "H1Y"
-    #     self.assertTrue(Parcel.from_pc_valid())
-    #
-    # def test_valid_shipment_type_04(self):
-    #
-    #     self.assertTrue(method3())
-    #
-    # def test_length_is_not_too_low_04(self):
-    #
-    #     self.assertTrue(min_length <= method4())
-    #
-    # def test_length_is_not_too_high_05(self):
-    #     self.assertTrue(max_length >= method4())
-    #
-    # def test_width_is_not_too_low_06(self):
-    #     self.assertTrue(min_width <= method4())
-    #
-    # def test_width_is_not_too_high_07(self):
-    #     self.assertTrue(max_width >= method5())
-    #
-    # def test_height_is_in_not_too_low_08(self):
-    #     self.assertTrue(min_height <= method4())
-    #
-    # def test_height_is_in_not_too_high_09(self):
-    #     self.assertTrue(max_height >= method4())
-    #
-    # def test_weight_is_not_too_low_for_regular_10(self):
-    #     self.assertTrue(min_weight_regular <= method4())
-    #
-    # def test_weight_is_not_too_high_for_regular_11(self):
-    #     self.assertTrue(max_weight_regular >= method4())
-    #
-    # def test_weight_is_not_too_low_for_priority_12(self):
-    #     self.assertTrue(min_weight_priority <= method4())
-    #
-    # def test_weight_is_not_too_high_for_priority_13(self):
-    #     self.assertTrue(max_weight_priority >= method4())
-    #
-    # def test_weight_is_in_range_for_xpress_14(self):
-    #     self.assertTrue(min_weight_xpress <= method4())
-    #
-    # def test_weigth_is_in_range_for_xpress_15(self):
-    #     self.assertTrue(max_weight_xpress >= method4())
+    def test_valid_to_postalcode_04(self):
+         testparcel = Parcel(0,'H1Y',0,0,0,0,0)
+         self.assertTrue(testparcel.from_pc_valid())
+
+    def test_valid_shipment_type_05(self):
+         testparcel = Parcel(0,0,0,0,0,0,'Regular')
+         self.assertTrue(testparcel.is_postal_type_valid())
+
+     def test_length_is_not_too_low_04(self):
+         testparcel = Parcel(0,0,10,0,0,0,0)
+         self.assertTrue(testparcel.length_is_not_too_low())
+         testparcel = Parcel(0, 0, 9, 0, 0, 0, 0)
+         self.assertFalse(testparcel.length_is_not_too_low())
+
+    def test_length_is_not_too_high_05(self):
+        testparcel = Parcel(0, 0, 210, 0, 0, 0, 0)
+        self.assertTrue(testparcel.length_is_not_too_high())
+        testparcel = Parcel(0, 0, 211, 0, 0, 0, 0)
+        self.assertFalse(testparcel.length_is_not_too_high())
+
+    def test_width_is_not_too_low_06(self):
+         testparcel = Parcel(0, 0, 0, 7, 0, 0, 0)
+         self.assertTrue(testparcel.width_is_not_too_low())
+         testparcel = Parcel(0, 0, 0, 6, 0, 0, 0)
+         self.assertFalse(testparcel.width_is_not_too_low())
+
+    def test_width_is_not_too_high_05(self):
+        testparcel = Parcel(0, 0, 0, 275, 0, 0, 0)
+        self.assertTrue(testparcel.width_is_not_too_high())
+        testparcel = Parcel(0, 0, 0, 276, 0, 0, 0)
+        self.assertFalse(testparcel.width_is_not_too_high())
+
+    def test_height_is_not_too_low_06(self):
+        testparcel = Parcel(0, 0, 0, 0, 1, 0, 0)
+        self.assertTrue(testparcel.width_is_not_too_low())
+        testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
+        self.assertFalse(testparcel.width_is_not_too_low())
+
+    def test_height_is_not_too_high_05(self):
+        testparcel = Parcel(0, 0, 0, 0, 210, 0, 0)
+        self.assertTrue(testparcel.width_is_not_too_high())
+        testparcel = Parcel(0, 0, 0, 0, 211, 0, 0)
+        self.assertFalse(testparcel.width_is_not_too_high())
+
+
+     def test_weight_is_not_too_low_for_regular_10(self):
+        testparcel = Parcel(0, 0, 0, 0, 0, 0 , 0)
+        self.assertTrue(testparcel.is_weight_not_too_low_for_regular())
+        testparcel = Parcel(0, 0, 0, 0, 0, -1, 0)
+        self.assertFalse(testparcel.is_weight_not_too_low_for_regular())
+
+    def test_weight_is_not_too_high_for_regular_10(self):
+        testparcel = Parcel(0, 0, 0, 0, 0, 10, 0)
+        self.assertTrue(testparcel.is_weight_not_too_high_for_regular())
+        testparcel = Parcel(0, 0, 0, 0, 0, 11, 0)
+        self.assertFalse(testparcel.is_weight_not_too_high_for_regular())
+
+    def test_weight_is_not_too_low_for_priority_10(self):
+        testparcel = Parcel(0, 0, 0, 0, 0, 11, 0)
+        self.assertTrue(testparcel.is_weight_not_too_low_for_priority())
+        testparcel = Parcel(0, 0, 0, 0, 0, 10, 0)
+        self.assertFalse(testparcel.is_weight_not_too_low_for_priority())
+
+
+    def test_weight_is_not_too_high_for_priority_10(self):
+        testparcel = Parcel(0, 0, 0, 0, 0, 20, 0)
+        self.assertTrue(testparcel.is_weight_not_too_high_for_priority())
+        testparcel = Parcel(0, 0, 0, 0, 0, 21, 0)
+        self.assertFalse(testparcel.is_weight_not_too_high_for_priority())
+
+    def test_weight_is_not_too_low_for_xpress_10(self):
+        testparcel = Parcel(0, 0, 0, 0, 0, 21, 0)
+        self.assertTrue(testparcel.is_weight_not_too_low_for_xpress())
+        testparcel = Parcel(0, 0, 0, 0, 0, 20, 0)
+        self.assertFalse(testparcel.is_weight_not_too_low_for_xpress())
+
+    def test_weight_is_not_too_high_for_xpress_10(self):
+        testparcel = Parcel(0, 0, 0, 0, 0, 30, 0)
+        self.assertTrue(testparcel.is_weight_not_too_high_for_xpress())
+        testparcel = Parcel(0, 0, 0, 0, 0, 31, 0)
+        self.assertFalse(testparcel.is_weight_not_too_high_for_xpress())
+
+
     #
     # def test_rate_validity_10(self):
 
