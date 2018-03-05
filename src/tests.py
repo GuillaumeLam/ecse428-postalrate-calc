@@ -3,57 +3,56 @@ from parcel import Parcel
 from errors import Errors
 
 
-# min_length = 10
-# max_length = 210
-# min_height = 1
-# max_height = 210
-# min_width = 7
-# max_width = 275
-#
-# min_weight_regular = 0
-# max_weight_regular = 10
-#
-# min_weight_priority = 11
-# max_weight_priority = 20
-#
-# min_weight_xpress = 21
-# max_weight_xpress = 30
-#
-# rs_rate = 1.619
-# xs_rate = 1.149
-# ps_rate = 0.964
-
 
 class TestPostalRateCalculator(unittest.TestCase):
+
     def setUp(self):
         self.testparcel = Parcel(0,0,0,0,0,0,0)
         self.testparcel.sameto = []
 
+    # test whether an Exception has been raised when no arguments are inputted
     def test_01_no_arguments(self):
         with self.assertRaises(Exception):
             Errors.no_args(1)
 
+    # test whether an Exception has been raised when too few arguments are inputted
     def test_02_too_few_arguments(self):
         with self.assertRaises(Exception):
             Errors.missing_args(4)
 
+    # test whether an Exception has been raised when too many arguments are inputted
     def test_03_too_many_arguments(self):
         with self.assertRaises(Exception):
             Errors.too_many_args(9)
 
-    def test_03_valid_from_postalcode(self):
+    # test whether the inputted postal code is an acceptable string
+    def test_04_valid_form_of_from_postalcode(self):
+        testparcel = Parcel('A0Z', 0, 0, 0, 0, 0, 0)
+        self.assertTrue(testparcel.pc_valid_form())
+        testparcel = Parcel('Home', 0, 0, 0, 0, 0, 0)
+        self.assertFalse(testparcel.pc_valid_form())
+        testparcel = Parcel( 0, 'Z1A', 0, 0, 0, 0, 0)
+        self.assertTrue(testparcel.pc_valid_form())
+        testparcel = Parcel(0, 'School', 0, 0, 0, 0, 0)
+        self.assertFalse(testparcel.pc_valid_form())
+
+    # test whether the From postal code is a valid one from the CSV list
+    def test_05_valid_from_postalcode(self):
         testparcel = Parcel('V9A',0,0,0,0,0,0)
         self.assertTrue(testparcel.from_pc_valid())
+        testparcel = Parcel('Z8H',0,0,0,0,0,0)
+        self.assertFalse(testparcel.from_pc_valid())
 
-    def test_04_valid_to_postalcode(self):
+    # test whether the To postal code is a valid one from the CSV list, if the To postal code is valid
+    def test_06_valid_to_postalcode(self):
         testparcel = Parcel('V9A','H1Y',0,0,0,0,0)
         testparcel.from_pc_valid()
         self.assertTrue(testparcel.to_pc_valid())
+        testparcel.to_pc = 'A2Z'
+        self.assertFalse(testparcel.to_pc_valid())
 
-        #testparcel.from_pc = 'H1Y'
-        #self.assertTrue(testparcel.from_pc_valid())
-
-    def test_05_valid_shipment_type(self):
+    # test whether the shipment type is one of the three options: Regular, Xpress, Priority
+    def test_07_valid_shipment_type(self):
         testparcel = Parcel(0,0,0,0,0,0,'Regular')
         self.assertTrue(testparcel.is_postal_type_valid())
         testparcel.type = 'Xpress'
