@@ -18,37 +18,27 @@ class TestPostalRateCalculator(unittest.TestCase):
     # test whether an Exception has been raised when too few arguments are inputted
     def test_02_too_few_arguments(self):
         with self.assertRaises(Exception):
-            Errors.missing_args(4)
+            Errors.missing_args(7)
 
     # test whether an Exception has been raised when too many arguments are inputted
     def test_03_too_many_arguments(self):
         with self.assertRaises(Exception):
-            Errors.too_many_args(9)
-
-    # test whether the inputted postal code is an acceptable string
-    def test_04_valid_form_of_from_postalcode(self):
-        testparcel = Parcel('A0Z', 0, 0, 0, 0, 0, 0)
-        self.assertTrue(testparcel.pc_valid_form())
-        testparcel = Parcel('Home', 0, 0, 0, 0, 0, 0)
-        self.assertFalse(testparcel.pc_valid_form())
-        testparcel = Parcel( 0, 'Z1A', 0, 0, 0, 0, 0)
-        self.assertTrue(testparcel.pc_valid_form())
-        testparcel = Parcel(0, 'School', 0, 0, 0, 0, 0)
-        self.assertFalse(testparcel.pc_valid_form())
+            Errors.too_many_args(20)
 
     # test whether the From postal code is a valid one from the CSV list
-    def test_05_valid_from_postalcode(self):
+    def test_05_existing_from_postalcode(self):
         testparcel = Parcel('V9A',0,0,0,0,0,0)
         self.assertTrue(testparcel.from_pc_valid())
         testparcel = Parcel('Z8H',0,0,0,0,0,0)
         self.assertFalse(testparcel.from_pc_valid())
 
     # test whether the To postal code is a valid one from the CSV list, if the To postal code is valid
-    def test_06_valid_to_postalcode(self):
+    def test_06_existing_to_postalcode(self):
         testparcel = Parcel('V9A','H1Y',0,0,0,0,0)
         testparcel.from_pc_valid()
         self.assertTrue(testparcel.to_pc_valid())
         testparcel.to_pc = 'A2Z'
+        testparcel.from_pc_valid()
         self.assertFalse(testparcel.to_pc_valid())
 
     # test whether the shipment type is one of the three options: Regular, Xpress, Priority
@@ -149,6 +139,65 @@ class TestPostalRateCalculator(unittest.TestCase):
         self.assertTrue(testparcel.is_weight_not_too_high_for_large())
         testparcel.weight = 31
         self.assertFalse(testparcel.is_weight_not_too_high_for_large())
+
+    def test_n_right_price(self):
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 10, 'Regular')
+        self.assertEqual(testparcel.verify(), 16.19)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 15, 'Regular')
+        self.assertEqual(testparcel.verify(), 17.23)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 30, 'Regular')
+        self.assertEqual(testparcel.verify(), 28.92)
+
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 10, 'Xpress')
+        self.assertEqual(testparcel.verify(), 20.19)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 15, 'Xpress')
+        self.assertEqual(testparcel.verify(), 21.23)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 30, 'Xpress')
+        self.assertEqual(testparcel.verify(), 32.92)
+
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 10, 'Priority')
+        self.assertEqual(testparcel.verify(), 36.19)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 15, 'Priority')
+        self.assertEqual(testparcel.verify(), 37.23)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 30, 'Priority')
+        self.assertEqual(testparcel.verify(), 48.92)
+
+        testparcel = Parcel('V9A', 'H1Y', 2, 50, 50, 10, 'Regular')
+        self.assertEqual(testparcel.verify(), -1)
+        testparcel = Parcel('V9A', 'H1Y', 50, 300, 50, 15, 'Xpress')
+        self.assertEqual(testparcel.verify(), -1)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 4684, 30, 'Priority')
+        self.assertEqual(testparcel.verify(), -1)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 0, 'Regular')
+        self.assertEqual(testparcel.verify(), -1)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 45, 'Regular')
+        self.assertEqual(testparcel.verify(), -1)
+        testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 30, 'dsf')
+        self.assertEqual(testparcel.verify(), -1)
+
+        # Todo: letters for numbers
+
+    # TODO: INVALID TESTS
+    # test whether the inputted from postal code has a postal code format
+    def test_04_valid_form_of_from_postalcode(self):
+        testparcel = Parcel('A0Z', 0, 0, 0, 0, 0, 0)
+        self.assertTrue(testparcel.pc_valid_form(testparcel.from_pc))
+        testparcel = Parcel('Home', 0, 0, 0, 0, 0, 0)
+        self.assertFalse(testparcel.pc_valid_form(testparcel.from_pc))
+
+    # test whether the inputted from postal code has a postal code format
+    def test_04_valid_form_of_from_postalcode(self):
+        testparcel = Parcel(0, 'Z1A', 0, 0, 0, 0, 0)
+        self.assertTrue(testparcel.pc_valid_form(testparcel.to_pc))
+        testparcel = Parcel(0, 'School', 0, 0, 0, 0, 0)
+        self.assertFalse(testparcel.pc_valid_form(testparcel.to_pc))
+
+    def test_n_valid_numeric_values(self):
+        testparcel = Parcel('V0A', 'H1Y', 'not', 'a', 'number', 'yea', 'Regular')
+        self.assertFalse(testparcel.numeric_entries_valid_form(testparcel.length))
+        self.assertFalse(testparcel.numeric_entries_valid_form(testparcel.height))
+        self.assertFalse(testparcel.numeric_entries_valid_form(testparcel.width))
+        self.assertFalse(testparcel.numeric_entries_valid_form(testparcel.weight))
 
 
 if __name__ == '__main__':
