@@ -151,6 +151,7 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.weight = 31
         self.assertFalse(testparcel.is_weight_not_too_high_for_large())
 
+    # test asserts price matches the expected value
     def test_19_right_price(self):
         testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 10, 'Regular')
         self.assertEqual(testparcel.verify(), 16.19)
@@ -186,6 +187,7 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 30, 'dsf')
         self.assertEqual(testparcel.verify(), -1)
 
+    # test asserts that rate mathes expected value
     def test_20_validate_rate(self):
         testparcel = Parcel('V9A','H1Y','Regular', 11, 8,100, 2)
         testparcel.from_pc_valid()
@@ -211,6 +213,7 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel = Parcel(0, 'School', 0, 0, 0, 0, 0)
         self.assertFalse(testparcel.pc_valid_form(testparcel.to_pc))
 
+    # test whether required values are numeric
     def test_23_valid_numeric_values(self):
         testparcel = Parcel('V0A', 'H1Y', 'not', 'a', 'number', 'yea', 'Regular')
         self.assertFalse(testparcel.numeric_entries_valid_form(testparcel.length))
