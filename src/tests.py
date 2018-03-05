@@ -43,7 +43,7 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel = Parcel('Z8H',0,0,0,0,0,0)
         self.assertFalse(testparcel.from_pc_valid())
 
-    # test whether the To postal code is a valid one from the CSV list, if the To postal code is valid
+    # test whether the To postal code is a valid one from the CSV list, if the From postal code is valid
     def test_06_valid_to_postalcode(self):
         testparcel = Parcel('V9A','H1Y',0,0,0,0,0)
         testparcel.from_pc_valid()
@@ -57,10 +57,13 @@ class TestPostalRateCalculator(unittest.TestCase):
         self.assertTrue(testparcel.is_postal_type_valid())
         testparcel.type = 'Xpress'
         self.assertTrue(testparcel.is_postal_type_valid())
-        testparcel.weight = 'Priority'
+        testparcel.type = 'Priority'
         self.assertTrue(testparcel.is_postal_type_valid())
+        testparcel.type = 'Fast'
+        self.assertFalse(testparcel.is_postal_type_valid())
 
-    def test_06_length_is_not_too_low(self):
+    # test whether the length is not below the minimum length (10 cm)
+    def test_08_length_is_not_too_low(self):
         testparcel = Parcel(0,0,0,0,0,0,0)
         testparcel.sameto = [['V9A', 'H1Y', 'Regular', 10, 210, 7, 275, 1, 210, 0, 10, 1.619]]
         testparcel.length = 10
@@ -68,7 +71,8 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.length = 9
         self.assertFalse(testparcel.length_is_not_too_low())
 
-    def test_07_length_is_not_too_high(self):
+    # test whether the length is not above the maximum length (10 cm)
+    def test_09_length_is_not_too_high(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.sameto = [['V9A', 'H1Y', 'Regular', 10, 210, 7, 275, 1, 210, 0, 10, 1.619]]
         testparcel.length = 210
@@ -76,7 +80,8 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.length = 211
         self.assertFalse(testparcel.length_is_not_too_high())
 
-    def test_08_width_is_not_too_low(self):
+    # test whether the width is not below the minimum width (1 cm)
+    def test_10_width_is_not_too_low(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.sameto = [['V9A', 'H1Y', 'Regular', 10, 210, 7, 275, 1, 210, 0, 10, 1.619]]
         testparcel.width = 1
@@ -84,7 +89,8 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.width = 0
         self.assertFalse(testparcel.width_is_not_too_low())
 
-    def test_09_width_is_not_too_high(self):
+    # test whether the width is not above the maximum width (210 cm)
+    def test_11_width_is_not_too_high(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.sameto = [['V9A', 'H1Y', 'Regular', 10, 210, 7, 275, 1, 210, 0, 10, 1.619]]
         testparcel.width = 210
@@ -92,7 +98,8 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.width = 211
         self.assertFalse(testparcel.width_is_not_too_high())
 
-    def test_10_height_is_not_too_low(self):
+    # test whether the height is not below the minimum height (7 cm)
+    def test_12_height_is_not_too_low(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.sameto = [['V9A', 'H1Y', 'Regular', 10, 210, 7, 275, 1, 210, 0, 10, 1.619]]
         testparcel.height = 7
@@ -100,7 +107,8 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.height = 6
         self.assertFalse(testparcel.height_is_not_too_low())
 
-    def test_11_height_is_not_too_high(self):
+    # test whether the height is not above the maximum height (275 cm)
+    def test_13_height_is_not_too_high(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.sameto = [['V9A', 'H1Y', 'Regular', 10, 210, 7, 275, 1, 210, 0, 10, 1.619]]
         testparcel.height = 275
@@ -108,42 +116,48 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.height = 276
         self.assertFalse(testparcel.height_is_not_too_high())
 
-    def test_12_weight_is_not_too_low_for_small(self):
+    # test whether the weight is not below the minimum for a small package(1 cm)
+    def test_14_weight_is_not_too_low_for_small(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.weight = 1
         self.assertTrue(testparcel.is_weight_not_too_low_for_small())
         testparcel.weight = 0
         self.assertFalse(testparcel.is_weight_not_too_low_for_small())
 
-    def test_13_weight_is_not_too_high_for_small(self):
+    # test whether the weight is not above the maximum for a small package(10 cm)
+    def test_15_weight_is_not_too_high_for_small(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.weight = 10
         self.assertTrue(testparcel.is_weight_not_too_high_for_small())
         testparcel.weight = 11
         self.assertFalse(testparcel.is_weight_not_too_high_for_small())
 
-    def test_14_weight_is_not_too_low_for_medium(self):
+    # test whether the weight is not below the minimum for a medium package(11 cm)
+    def test_16_weight_is_not_too_low_for_medium(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.weight = 11
         self.assertTrue(testparcel.is_weight_not_too_low_for_medium())
         testparcel.weight = 10
         self.assertFalse(testparcel.is_weight_not_too_low_for_medium())
 
-    def test_15_weight_is_not_too_high_for_medium(self):
+    # test whether the weight is not above the maximum for a medium package(20 cm)
+    def test_17_weight_is_not_too_high_for_medium(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.weight = 20
         self.assertTrue(testparcel.is_weight_not_too_high_for_medium())
         testparcel.weight = 21
         self.assertFalse(testparcel.is_weight_not_too_high_for_medium())
 
-    def test_16_weight_is_not_too_low_for_large(self):
+    # test whether the weight is not below the minimum for a large package(21 cm)
+    def test_18_weight_is_not_too_low_for_large(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.weight = 21
         self.assertTrue(testparcel.is_weight_not_too_low_for_large())
         testparcel.weight = 20
         self.assertFalse(testparcel.is_weight_not_too_low_for_large())
 
-    def test_17_weight_is_not_too_high_for_large(self):
+    # test whether the weight is not above the maximum for a large package(30 cm)
+    def test_19_weight_is_not_too_high_for_large(self):
         testparcel = Parcel(0, 0, 0, 0, 0, 0, 0)
         testparcel.weight = 30
         self.assertTrue(testparcel.is_weight_not_too_high_for_large())
