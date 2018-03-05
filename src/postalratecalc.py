@@ -1,8 +1,15 @@
 # maybe have class parcel so that it can be imported into tests.py and tested
 import argparse
 import sys
+import os
+
+if not os.path.isfile(os.path.dirname(os.path.realpath(__file__)) + '/../postalrate.csv'):
+    import postalratecsvpop
+
 from parcel import Parcel
 from errors import Errors
+
+
 
 parser = argparse.ArgumentParser(description='Do stuff.')
 parser.add_argument('--from', dest='frm', help='Enter the first three variables of your local postal code')
@@ -19,19 +26,19 @@ try:
     Errors.no_args(len(sys.argv))
 except Exception as error:
     print("You have entered no arguments!")
-    exit()
+    sys.exit()
 
 try:
     Errors.missing_args(len(sys.argv))
 except Exception as error:
     print("You are missing some arguments!")
-    exit()
+    sys.exit()
 
 try:
     Errors.too_many_args(len(sys.argv))
 except Exception as error:
     print("You somehow entered too many arguments!")
-    exit()
+    sys.exit()
 
 parcel = Parcel(args.frm, args.to, args.length, args.width, args.height, args.weight, args.postal_type)
 # parcel = Parcel('V9B', 'H1Y', 50, 50, 50, 2, 'Regular')
@@ -39,6 +46,6 @@ parcel = Parcel(args.frm, args.to, args.length, args.width, args.height, args.we
 total = parcel.verify()
 
 if total < 0:
-    exit()
+    sys.exit()
 
-print('total: ' + str(total) + "$\n")
+print('total: ' + str(total) + "$")

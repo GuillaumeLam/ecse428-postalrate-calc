@@ -6,10 +6,10 @@ class Errors:
 
     @staticmethod
     def missing_args(args):
-        if args < 8:
+        if args < 15:
             raise Exception
 
     @staticmethod
     def too_many_args(args):
-        if args > 8:
+        if args > 15:
             raise Exception

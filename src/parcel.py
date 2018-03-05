@@ -1,5 +1,6 @@
 import csv
 import re
+import os
 
 class Parcel:
 
@@ -16,7 +17,7 @@ class Parcel:
         self.total = 0
 
     def from_pc_valid(self):
-        with open('../postalrate.csv', 'r', newline='') as file:
+        with open(os.path.dirname(os.path.realpath(__file__)) + '/../postalrate.csv', 'r', newline='') as file:
             reader = csv.reader(file, delimiter=',', quotechar='|')
             for i, row in enumerate(reader):
                 if i == 0:
@@ -65,78 +66,78 @@ class Parcel:
 
     def length_is_not_too_low(self):
         row = self.sameto[0]
-        if self.length >= int(row[3]):
+        if int(self.length) >= int(row[3]):
             return True
         else:
             return False
 
     def length_is_not_too_high(self):
         row = self.sameto[0]
-        if self.length <= int(row[4]):
+        if int(self.length) <= int(row[4]):
             return True
         else:
             return False
 
     def height_is_not_too_low(self):
         row = self.sameto[0]
-        if self.height >= int(row[5]):
+        if int(self.height) >= int(row[5]):
             return True
         else:
             return False
 
     def height_is_not_too_high(self):
         row = self.sameto[0]
-        if self.height <= int(row[6]):
+        if int(self.height) <= int(row[6]):
             return True
         else:
             return False
 
     def width_is_not_too_low(self):
         row = self.sameto[0]
-        if self.width >= int(row[7]):
+        if int(self.width) >= int(row[7]):
             return True
         else:
             return False
 
     def width_is_not_too_high(self):
         row = self.sameto[0]
-        if self.width <= int(row[8]):
+        if int(self.width) <= int(row[8]):
             return True
         else:
             return False
 
     def is_weight_not_too_low_for_small(self):
-        if self.weight > 0:
+        if int(self.weight) > 0:
             return True
         else:
             return False
 
     def is_weight_not_too_high_for_small(self):
-        if self.weight <= 10:
+        if int(self.weight) <= 10:
             return True
         else:
             return False
 
     def is_weight_not_too_low_for_medium(self):
-        if self.weight > 10:
+        if int(self.weight) > 10:
             return True
         else:
             return False
 
     def is_weight_not_too_high_for_medium(self):
-        if self.weight <= 20:
+        if int(self.weight) <= 20:
             return True
         else:
             return False
 
     def is_weight_not_too_low_for_large(self):
-        if self.weight > 20:
+        if int(self.weight) > 20:
             return True
         else:
             return False
 
     def is_weight_not_too_high_for_large(self):
-        if self.weight <= 30:
+        if int(self.weight) <= 30:
             return True
         else:
             return False

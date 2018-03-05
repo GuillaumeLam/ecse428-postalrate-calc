@@ -7,6 +7,7 @@
 # of rate for next higher tier)
 
 import csv
+import os
 
 postal_codes = ['H1Y',          # Montreal
                 'V9A',          # Victoria
@@ -23,17 +24,7 @@ postal_codes = ['H1Y',          # Montreal
                 'X0A']          # Iqaluit
 csv_entries = []
 
-# generates all possible codes
-# for i in range(10):
-#     firstletter = chr(randint(65, 90))
-#     number = randint(0, 9)
-#     secondletter = chr(randint(65, 90))
-#
-#     code = str(firstletter) + str(number) + str(secondletter)
-#
-#     postal_codes.append(code)
-
-with open('../postalrate.csv', 'w', newline='') as csvfile:
+with open(os.path.dirname(os.path.realpath(__file__)) + '/../postalrate.csv', 'w', newline='') as csvfile:
 
     spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 
@@ -66,7 +57,6 @@ with open('../postalrate.csv', 'w', newline='') as csvfile:
                 entries.append([frompc, topc, 'Xpress'])
             else:
                 entries.append([frompc, topc, 'Priority'])
-        print(entries)
 
         for n, entry in enumerate(entries):
             entry.append(min_length)
@@ -87,6 +77,5 @@ with open('../postalrate.csv', 'w', newline='') as csvfile:
                 entry.append(20)
                 entry.append(30)
                 entry.append(ps_rate)
-
 
             spamwriter.writerow(entry)
