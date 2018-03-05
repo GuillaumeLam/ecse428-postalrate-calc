@@ -168,13 +168,13 @@ class TestPostalRateCalculator(unittest.TestCase):
     def test_20_validate_rate(self):
         testparcel = Parcel('V9A','H1Y','Regular', 11, 8,100, 2)
         testparcel.from_pc_valid()
-        self.testEqual(1.619, testparcel.sameFrom[0][11])
+        self.testEqual(1.619, testparcel.samefrom[0][11])
         testparcel_2 = Parcel('V9A','H1Y','Regular',11, 8, 100, 13)
         testparcel_2.from_pc_valid()
-        self.testEqual(1.149, testparcel.sameFrom[0][11])
+        self.testEqual(1.149, testparcel.samefrom[0][11])
         testparcel_3 = Parcel('V9A', 'H1Y', 'Regular', 11, 8, 100, 22)
         testparcel_3.from_pc_valid()
-        self.testEqual(0.964, testparcel.sameFrom[0][11])
+        self.testEqual(0.964, testparcel.samefrom[0][11])
 
 
 
