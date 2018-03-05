@@ -60,78 +60,78 @@ class Parcel:
 
     def length_is_not_too_low(self):
         row = self.sameto[0]
-        if int(self.length) >= int(row[3]):
+        if float(self.length) >= float(row[3]):
             return True
         else:
             return False
 
     def length_is_not_too_high(self):
         row = self.sameto[0]
-        if int(self.length) <= int(row[4]):
+        if float(self.length) <= float(row[4]):
             return True
         else:
             return False
 
     def height_is_not_too_low(self):
         row = self.sameto[0]
-        if int(self.height) >= int(row[5]):
+        if float(self.height) >= float(row[5]):
             return True
         else:
             return False
 
     def height_is_not_too_high(self):
         row = self.sameto[0]
-        if int(self.height) <= int(row[6]):
+        if float(self.height) <= float(row[6]):
             return True
         else:
             return False
 
     def width_is_not_too_low(self):
         row = self.sameto[0]
-        if int(self.width) >= int(row[7]):
+        if float(self.width) >= float(row[7]):
             return True
         else:
             return False
 
     def width_is_not_too_high(self):
         row = self.sameto[0]
-        if int(self.width) <= int(row[8]):
+        if float(self.width) <= float(row[8]):
             return True
         else:
             return False
 
     def is_weight_not_too_low_for_small(self):
-        if int(self.weight) > 0:
+        if float(self.weight) > 0:
             return True
         else:
             return False
 
     def is_weight_not_too_high_for_small(self):
-        if int(self.weight) <= 10:
+        if float(self.weight) <= 10:
             return True
         else:
             return False
 
     def is_weight_not_too_low_for_medium(self):
-        if int(self.weight) > 10:
+        if float(self.weight) > 10:
             return True
         else:
             return False
 
     def is_weight_not_too_high_for_medium(self):
-        if int(self.weight) <= 20:
+        if float(self.weight) <= 20:
             return True
         else:
             return False
 
     def is_weight_not_too_low_for_large(self):
-        if int(self.weight) > 20:
+        if float(self.weight) > 20:
             return True
         else:
             return False
 
     def is_weight_not_too_high_for_large(self):
-        if int(self.weight) <= 30:
+        if float(self.weight) <= 30:
             return True
         else:
             return False
@@ -144,7 +144,7 @@ class Parcel:
 
     def numeric_entries_valid_form(self, number):
         try:
-            number = int(number)
+            number = float(number)
             return True
         except Exception as error:
             return False
