@@ -10,7 +10,6 @@ from parcel import Parcel
 from errors import Errors
 
 
-
 parser = argparse.ArgumentParser(description='Do stuff.')
 parser.add_argument('--from', dest='frm', help='Enter the first three variables of your local postal code')
 parser.add_argument('--to', dest='to', help="Really? You don't know your fucking Postal Code?")
@@ -41,7 +40,6 @@ except Exception as error:
     sys.exit()
 
 parcel = Parcel(args.frm, args.to, args.length, args.width, args.height, args.weight, args.postal_type)
-# parcel = Parcel('V9B', 'H1Y', 50, 50, 50, 2, 'Regular')
 
 total = parcel.verify()
 

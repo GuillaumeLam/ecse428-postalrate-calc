@@ -55,9 +55,6 @@ class Parcel:
         else:
             return False
 
-    def get_postal_p_type(self):
-        return self.p_type
-
     def length_is_not_too_low(self):
         row = self.sameto[0]
         if float(self.length) >= float(row[3]):
@@ -72,20 +69,6 @@ class Parcel:
         else:
             return False
 
-    def height_is_not_too_low(self):
-        row = self.sameto[0]
-        if float(self.height) >= float(row[5]):
-            return True
-        else:
-            return False
-
-    def height_is_not_too_high(self):
-        row = self.sameto[0]
-        if float(self.height) <= float(row[6]):
-            return True
-        else:
-            return False
-
     def width_is_not_too_low(self):
         row = self.sameto[0]
         if float(self.width) >= float(row[7]):
@@ -96,6 +79,20 @@ class Parcel:
     def width_is_not_too_high(self):
         row = self.sameto[0]
         if float(self.width) <= float(row[8]):
+            return True
+        else:
+            return False
+
+    def height_is_not_too_low(self):
+        row = self.sameto[0]
+        if float(self.height) >= float(row[5]):
+            return True
+        else:
+            return False
+
+    def height_is_not_too_high(self):
+        row = self.sameto[0]
+        if float(self.height) <= float(row[6]):
             return True
         else:
             return False

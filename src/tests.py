@@ -45,7 +45,6 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel.p_type = 'Priority'
         self.assertTrue(testparcel.is_postal_type_valid())
         testparcel.p_type = 'Fast'
-        print(testparcel.is_postal_type_valid())
         self.assertFalse(testparcel.is_postal_type_valid())
 
     # test whether the length is not below the minimum length (10 cm)
@@ -187,15 +186,6 @@ class TestPostalRateCalculator(unittest.TestCase):
         testparcel = Parcel('V9A', 'H1Y', 50, 50, 50, 30, 'dsf')
         self.assertEqual(testparcel.verify(), -1)
 
-        testparcel = Parcel('V9A', 'H1Y', 'not', 68, 73, 23, 'Regular')
-        self.assertEqual(testparcel.verify(), -1)
-        testparcel = Parcel('V9A', 'H1Y', 69, 'a', 46, 52, 'Regular')
-        self.assertEqual(testparcel.verify(), -1)
-        testparcel = Parcel('V9A', 'H1Y', 94, 132, 'number', 74, 'Regular')
-        self.assertEqual(testparcel.verify(), -1)
-        testparcel = Parcel('V9A', 'H1Y', 34, 76, 23, 72, 'Regular')
-        self.assertEqual(testparcel.verify(), -1)
-
     def test_20_validate_rate(self):
         testparcel = Parcel('V9A','H1Y','Regular', 11, 8,100, 2)
         testparcel.from_pc_valid()
@@ -215,7 +205,7 @@ class TestPostalRateCalculator(unittest.TestCase):
         self.assertFalse(testparcel.pc_valid_form(testparcel.from_pc))
 
     # test whether the inputted from postal code has a postal code format
-    def test_22_valid_form_of_from_postalcode(self):
+    def test_22_valid_form_of_to_postalcode(self):
         testparcel = Parcel(0, 'Z1A', 0, 0, 0, 0, 0)
         self.assertTrue(testparcel.pc_valid_form(testparcel.to_pc))
         testparcel = Parcel(0, 'School', 0, 0, 0, 0, 0)
