@@ -19,7 +19,7 @@ class Parcel:
 
     def from_pc_valid(self):
         self.sameto = []
-        with open(os.path.dirname(os.path.realpath(__file__)) + '/../postalrate.csv', 'r', newline='') as file:
+        with open(os.path.dirname(os.path.realpath('__file__')) + '/../postalrate.csv', 'r', newline='') as file:
             reader = csv.reader(file, delimiter=',', quotechar='|')
             for i, row in enumerate(reader):
                 if i == 0:

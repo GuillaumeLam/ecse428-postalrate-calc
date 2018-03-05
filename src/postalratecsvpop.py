@@ -24,7 +24,7 @@ postal_codes = ['H1Y',          # Montreal
                 'X0A']          # Iqaluit
 csv_entries = []
 
-with open(os.path.dirname(os.path.realpath(__file__)) + '/../postalrate.csv', 'w', newline='') as csvfile:
+with open(os.path.dirname(os.path.realpath('__file__')) + '/../postalrate.csv', 'w', newline='') as csvfile:
 
     spamwriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 

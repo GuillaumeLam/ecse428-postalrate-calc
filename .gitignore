@@ -2,6 +2,5 @@
 /src/.idea/
 /src/postalrate.csv
 /src/build/
-/src/dist/
 /src/*.spec
 /src/__pycache__/

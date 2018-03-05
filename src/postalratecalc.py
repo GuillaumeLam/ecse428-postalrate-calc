@@ -3,7 +3,7 @@ import argparse
 import sys
 import os
 
-if not os.path.isfile(os.path.dirname(os.path.realpath(__file__)) + '/../postalrate.csv'):
+if not os.path.isfile(os.path.dirname(os.path.realpath('__file__')) + '/../postalrate.csv'):
     import postalratecsvpop
 
 from parcel import Parcel
